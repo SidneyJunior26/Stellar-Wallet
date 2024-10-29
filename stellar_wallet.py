@@ -1,20 +1,20 @@
 from stellar_sdk import Keypair
 import requests
 
-# Gerando um par de chaves (privada e pública)
-pair = Keypair.random()
+# Generate a keypair (private and public keys)
+keypair = Keypair.random()
 
-# Exibindo a chave secreta e pública
-print(f"Secret: {pair.secret}")
-print(f"Public Key: {pair.public_key}")
+# Display the secret and public keys
+print(f"Secret: {keypair.secret}")
+print(f"Public Key: {keypair.public_key}")
 
-# Enviando a chave pública para o Friendbot (Testnet) para criar a conta
-public_key = pair.public_key
+# Send the public key to the Friendbot (Testnet) to create the account
+public_key = keypair.public_key
 response = requests.get(f"https://friendbot.stellar.org?addr={public_key}")
 
-# Verificando se a conta foi criada com sucesso
+# Check if the account was created successfully
 if response.status_code == 200:
     print("SUCCESS! You have a new account :)")
-    print(response.json())  # Exibindo detalhes da transação
+    print(response.json())  # Display transaction details
 else:
-    print("Error! Could not create account.")
+    print("ERROR! Could not create the account.")
